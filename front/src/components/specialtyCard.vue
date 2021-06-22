@@ -7,8 +7,6 @@
         {{ id }}
       </div>
     </button>
-
-
   </v-card>
 </template>
 

@@ -16,6 +16,10 @@
           <h3 class="headder"> Краткое описание </h3>
           {{description}}
           <br>
+          <div class="salary">
+            <h4 class="subheadder">Средняя зарплата в Великобритании:</h4>
+            <div class="wrappLeft">{{ salary }} £ в год</div>
+          </div>
         </div>
         <div class="skills">
           <h3 class="headder">Необходимые навыки для успешной работы</h3>
@@ -36,14 +40,21 @@
             </ul>
           </div>
         </div>
-        <div class="salary">
-          <h4 class="subheadder">Средняя зарплата в Великобритании:</h4>
-          <div class="wrappLeft">{{ salary }} £ в год</div>
-        </div>
+
         <div class="vacancies">
           <h3 class="headder">Вакансии в Великобритании: </h3>
-          <div class="list" v-for="(vacancy, index) in vacancies" :key="index">
-            <vacancy-card :id="specialty.id" :specialtyName="specialty.name"></vacancy-card>
+          <div class="vacanciesContainer">
+            <div class="list" v-for="(vacancy, index) in vacancies" :key="index">
+              <VacancyCard
+                  :company_name="vacancy['company_name']"
+                  :min_salary="vacancy['min_salary']"
+                  :max_salary="vacancy['max_salary']"
+                  :location="vacancy['location']"
+                  :vacancyDescription="vacancy['description']"
+                  :vacancyUrl="vacancy['url']"
+                  :specialty_name="specialtyName"
+              />
+          </div>
           </div>
         </div>
       </div>
@@ -51,7 +62,6 @@
     </div>
     <div class="footer">
     </div>
-
 
   </v-app>
 </template>
@@ -89,7 +99,7 @@ export default {
     this.specialtyId = this.$route.params.id;
     axios.get(`http://localhost:5005/vacancies?specialty_id=${this.specialtyId}`)
         .then(res => {
-          console.log(res)
+          this.vacancies = res["data"];
           /*this.company_name = res.data["company_name"]
           this.min_salary = res.data["min_salary"]
           this.max_salary = res.data["max_salary"]
@@ -215,6 +225,12 @@ export default {
 .wrappLeft {
   margin-left: 15px;
   display: block;
+}
+
+.vacanciesContainer {
+  text-align: center;
+  margin-top: 30px;
+  justify-content: left;
 }
 
 

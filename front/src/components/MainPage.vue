@@ -7,7 +7,7 @@
     </div>
     <div class="container">
       <div class="list" v-for="(specialty, index) in response" :key="index">
-        <specialty-card :id="specialty.id" :specialtyName="specialty.name"></specialty-card>
+        <specialtyCard :id="specialty.id" :specialtyName="specialty.name"></specialtyCard>
       </div>
     </div>
   </v-app>
